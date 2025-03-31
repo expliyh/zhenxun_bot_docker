@@ -1,5 +1,7 @@
 I know my Dockerfile is poorly written, but this image is only built for personal use.
 
+我的Dockerfile写的确实很烂，根本跑不了，所以还是在原来的里面改改自己需要的东西吧
+
 # Original Readme
 
 <!-- markdownlint-disable MD033 MD041 -->
