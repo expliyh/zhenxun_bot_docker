@@ -24,8 +24,6 @@ RUN poetry install
 RUN playwright install --with-deps chromium \
   && rm -rf /var/lib/apt/lists/* /tmp/*
 
-COPY --from=metadata-stage /tmp/VERSION /app/VERSION
-
 VOLUME ["/app/data", "/app/resources", "/app/log"]
 
 CMD ["poetry", "run", "python", "bot.py"]
