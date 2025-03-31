@@ -1,4 +1,4 @@
-FROM python:3.11-bookworm AS requirements-stage
+FROM python:3.12-bookworm AS requirements-stage
 
 WORKDIR /tmp
 
@@ -15,7 +15,7 @@ RUN poetry export \
       --without-hashes \
       --without-urls
 
-FROM python:3.11-bookworm AS build-stage
+FROM python:3.12-bookworm AS build-stage
 
 WORKDIR /wheel
 
@@ -25,7 +25,7 @@ COPY --from=requirements-stage /tmp/requirements.txt /wheel/requirements.txt
 
 RUN pip wheel --wheel-dir=/wheel --no-cache-dir --requirement /wheel/requirements.txt
 
-FROM python:3.11-bookworm AS metadata-stage
+FROM python:3.12-bookworm AS metadata-stage
 
 WORKDIR /tmp
 
@@ -34,7 +34,7 @@ RUN --mount=type=bind,source=./.git/,target=/tmp/.git/ \
   || git rev-parse --short HEAD > /tmp/VERSION \
   && echo "Building version: $(cat /tmp/VERSION)"
 
-FROM python:3.11-slim-bookworm
+FROM python:3.12-slim-bookworm
 
 WORKDIR /app/zhenxun
 
@@ -45,10 +45,9 @@ ENV TZ=Asia/Shanghai PYTHONUNBUFFERED=1
 EXPOSE 8080
 
 RUN apt update && \
-    apt install -y --no-install-recommends curl fontconfig fonts-noto-color-emoji \
+    apt install -y --no-install-recommends curl fontconfig fonts-noto-color-emoji nano build-essential \
     && apt clean \
     && fc-cache -fv \
-    && apt-get purge -y --auto-remove curl \
     && rm -rf /var/lib/apt/lists/*
 
 # 复制依赖项和应用代码
