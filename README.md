@@ -1,3 +1,7 @@
+I know my Dockerfile is poorly written, but this image is only built for personal use.
+
+# Original Readme
+
 <!-- markdownlint-disable MD033 MD041 -->
 <div align=center>
 
